@@ -22,6 +22,7 @@ class PhpAmqpLibMessageProvider implements MessageProviderInterface
 
     public function get(): ?Message
     {
+        $this->channel->basic_qos(0, 1, false);
         $envelope = $this->channel->basic_get($this->queueName);
 
         if (null === $envelope) {
